@@ -78,41 +78,6 @@ const ext = {
 				wi.widget.inputEl.readOnly = true;
 				return ret;
 			};
-			const outSet = function (texts) {
-				if (texts.json_file.length > 0) {
-					let widget_id = this?.widgets.findIndex(
-						(w) => w.type == "customtext"
-					);
-					
-					let currentWidget = this.widgets[widget_id]
-					currentWidget.callback = async function () {
-
-						let responseData = await api.fetchApi(
-							`/toolbox/json/${texts.json_file.join("")}`,
-							{
-							method: "GET",
-							headers: {
-								"Content-Type": "application/json",
-							},
-							}
-						);
-						responseData = await responseData?.json();
-
-						console.log(responseData)
-						currentWidget.value = responseData.content;
-						app.graph.setDirtyCanvas(true);
-					}
-
-					currentWidget?.callback();
-				}
-			};
-
-			// onExecuted
-			const onExecuted = nodeType.prototype.onExecuted;
-			nodeType.prototype.onExecuted = function (texts) {
-				onExecuted?.apply(this, arguments);
-				outSet.call(this, texts);
-			};
 		}
 	},
 	async registerCustomNodes(app) {
@@ -125,6 +90,37 @@ const ext = {
 	nodeCreated(node, app) {
 		// Fires every time a node is constructed
 		// You can modify widgets/add handlers/etc here
+		const outSet = function (texts) {
+			if (texts.json_file.length > 0) {
+				let widget_id = node.widgets.findIndex(
+					(w) => w.type == "customtext"
+				);
+				
+				let currentWidget = node.widgets[widget_id]
+				currentWidget.callback = async function () {
+
+					let responseData = await api.fetchApi(
+						`/toolbox/json/${texts.json_file.join("")}`,
+						{
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						}
+					);
+					responseData = await responseData?.json();
+
+					console.log(responseData)
+					currentWidget.value = responseData.content;
+					app.graph.setDirtyCanvas(true);
+				}
+
+				currentWidget?.callback();
+			}
+		};
+
+		console.log(node)
+		// outSet.call(this, texts);
 	}
 };
 
