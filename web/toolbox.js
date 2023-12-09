@@ -42,6 +42,13 @@ const ext = {
 	
 	async beforeRegisterNodeDef(nodeType, nodeData, app) {
 		// Run custom logic before a node definition is registered with the graph
+		if (node?.comfyClass === "PreviewJson") { // 3
+			const onExecuted = nodeType.prototype.onExecuted;                     // 4
+			nodeType.prototype.onExecuted = function (message) {
+				onExecuted?.apply(this, arguments);                           // 5
+				console.log(message)                          // 6
+			}
+		}
 	},
 	async registerCustomNodes(app) {
 		// Register any custom node implementations here allowing for more flexability than a custom node def

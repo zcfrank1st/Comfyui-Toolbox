@@ -1,5 +1,21 @@
 import json
 
+class TestJson:
+    @classmethod
+    def INPUT_TYPES(s):
+        return {
+            "required": {
+                "text": ("STRING", {"multiline": True}),
+            },
+        }
+
+    RETURN_TYPES = ("JSON",)
+    FUNCTION = "json_test"
+    CATEGORY = "test"
+
+    def json_test(self, text):
+        return (text, )
+
 class PreviewJson:
     @classmethod
     def INPUT_TYPES(s):
