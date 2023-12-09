@@ -83,8 +83,9 @@ const ext = {
 					let widget_id = this?.widgets.findIndex(
 						(w) => w.type == "customtext"
 					);
-
-					this.widgets[widget_id].callback = async function () {
+					
+					let currentWidget = this.widgets[widget_id]
+					currentWidget.callback = async function () {
 
 						let responseData = await api.fetchApi(
 							`/toolbox/json/${texts.json_file.join("")}`,
@@ -98,11 +99,11 @@ const ext = {
 						responseData = await responseData?.json();
 
 
-						this.widgets[widget_id].value = responseData.content;
+						currentWidget.value = responseData.content;
 						app.graph.setDirtyCanvas(true);
 					}
 
-					this.widgets[widget_id]?.callback();
+					currentWidget?.callback();
 				}
 			};
 
