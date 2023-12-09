@@ -84,18 +84,25 @@ const ext = {
 						(w) => w.type == "customtext"
 					);
 
-					let responseData = api.fetchApi(
-						`/toolbox/json/${texts.json_file.join("")}`,
-						{
-						  method: "GET",
-						  headers: {
-							"Content-Type": "application/json",
-						  },
-						}
-					);
-					console.log(responseData);
-					this.widgets[widget_id].value = responseData.content;
-					app.graph.setDirtyCanvas(true);
+					this.widgets[widget_id].callback = async function () {
+
+						let responseData = await api.fetchApi(
+							`/toolbox/json/${texts.json_file.join("")}`,
+							{
+							method: "GET",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							}
+						);
+						responseData = await responseData?.json();
+
+
+						this.widgets[widget_id].value = responseData.content;
+						app.graph.setDirtyCanvas(true);
+					}
+
+					this.widgets[widget_id]?.callback();
 				}
 			};
 
