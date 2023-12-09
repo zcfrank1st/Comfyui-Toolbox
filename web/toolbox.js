@@ -111,10 +111,8 @@ const ext = {
 			const onExecuted = nodeType.prototype.onExecuted;
 			nodeType.prototype.onExecuted = function (texts) {
 				onExecuted?.apply(this, arguments);
-
-				if (nodeType.comfyClass === "PreviewJson") { 
-					outSet.call(this, texts);
-				}
+				// outSet.call(this, texts);
+				console.log("hello world")
 			};
 		}
 	},
