@@ -21,7 +21,7 @@ class PreviewJson:
     def INPUT_TYPES(s):
         return {
             "required": {
-                "json": ("JSON",),
+                "json_content": ("JSON",),
             },
         }
 
