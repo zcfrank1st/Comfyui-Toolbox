@@ -98,7 +98,7 @@ const ext = {
 						responseData = await responseData?.json();
 
 
-						this.widgets[widget_id].value = responseData.content;
+						this.widgets[widget_id].value = responseData.content.join("");
 						app.graph.setDirtyCanvas(true);
 					}
 
