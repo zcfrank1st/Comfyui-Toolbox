@@ -21,21 +21,23 @@ const ext = {
 
 		return {
 			JSON(node, inputName, inputData, app) {
-			    const inputEl = document.createElement("code");
-				inputEl.className = "comfy-json-preview";
-				inputEl.value = inputData[1];
+			    // const inputEl = document.createElement("code");
+				// inputEl.className = "comfy-json-preview";
+				// inputEl.value = inputData[1];
 
-				const widget = node.addDOMWidget(inputName, "json", inputEl, {
-					getValue() {
-						return inputEl.value;
-					},
-					setValue(v) {
-						inputEl.value = v;
-					},
-				});
-				widget.inputEl = inputEl;
+				// const widget = node.addDOMWidget(inputName, "json", inputEl, {
+				// 	getValue() {
+				// 		return inputEl.value;
+				// 	},
+				// 	setValue(v) {
+				// 		inputEl.value = v;
+				// 	},
+				// });
+				// widget.inputEl = inputEl;
 
-				return { minWidth: 400, minHeight: 400, widget };
+				// return { minWidth: 400, minHeight: 400, widget };
+				const defaultVal = inputData[1].default || "";
+				return { widget: node.addWidget("json", inputName, defaultVal, () => {}, {}) };
 			} 
 		}
 	},
