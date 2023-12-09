@@ -4,8 +4,26 @@ import os
 from pathlib import Path
 import random
 
+from server import PromptServer
+from aiohttp import web
+
 JSON_OUT_PATH = os.path.join(folder_paths.output_directory, "json")
 Path(JSON_OUT_PATH).mkdir(parents=True, exist_ok=True)
+
+@PromptServer.instance.routes.get("/toolbox/json/{filename}")
+async def argo_langs_support(request):
+    filename = request.match_info["filename"]
+    file_path = None
+    if "tmp" in filename:
+        file_path = folder_paths.get_temp_directory()
+    else:
+        file_path = JSON_OUT_PATH
+
+    content = ""
+    with open(Path(file_path) / f"{filename}", "r") as f:
+        content = f.readlines()
+       
+    return web.json_response({"content": content})
 
 class TestJsonPreview:
     @classmethod

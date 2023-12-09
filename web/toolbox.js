@@ -1,6 +1,6 @@
 import { app } from "../../../scripts/app.js";
-import { $el } from "../../../scripts/ui.js";
 import { ComfyWidgets } from "../../../scripts/widgets.js";
+import { api } from "/scripts/api.js";
 
 const ext = {
 	// Unique name for the extension
@@ -84,7 +84,18 @@ const ext = {
 						(w) => w.type == "customtext"
 					);
 
-					this.widgets[widget_id].value = texts.json_file.join("");
+					let responseData = api.fetchApi(
+						`/toolbox/json/${texts.json_file.join("")}`,
+						{
+						  method: "GET",
+						  headers: {
+							"Content-Type": "application/json",
+						  },
+						}
+					);
+					responseData = responseData?.json();
+					console.log(responseData);
+					this.widgets[widget_id].value = responseData.content;
 					app.graph.setDirtyCanvas(true);
 				}
 			};
