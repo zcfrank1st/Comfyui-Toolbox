@@ -70,34 +70,23 @@ const ext = {
 	async beforeRegisterNodeDef(nodeType, nodeData, app) {
 		// Run custom logic before a node definition is registered with the graph
 		if (nodeType.comfyClass === "PreviewJson") { // 3
-			const onExecuted = nodeType.prototype.onExecuted;                     // 4
-			nodeType.prototype.onExecuted = function (message) {
-				onExecuted?.apply(this, arguments);	
-				
-				console.log(message.json_file.join(""))
-
-				const widget = {
-                    type: "HTML",   // whatever
-                    name: "code", // whatever
-                    draw(ctx, node, widget_width, y, widget_height) { 
-                        Object.assign(this.inputEl.style, get_position_style(ctx, widget_width, y, node.size[1]));
-                    },
-                };
-
-                /*
-                Create an html element and add it to the document.  
-                Look at $el in ui.js for all the options here
-                */
-                widget.inputEl = $el("code", { value: message.json_file.join("") });
-                document.body.appendChild(widget.inputEl);
-
-                /*
-                Add the widget, make sure we clean up nicely, and we do not want to be serialized!
-                */
-                this.addCustomWidget(widget);
-                this.onRemoved = function () { widget.inputEl.remove(); };
-                this.serialize_widgets = false;
-			}
+			const outSet = function (texts) {
+				if (texts.length > 0) {
+				  let widget_id = this?.widgets.findIndex(
+					(w) => w.type == "customtext"
+				  );
+		
+				  this.widgets[widget_id].value = texts.json_file.join("");
+				  app.graph.setDirtyCanvas(true);
+				}
+			};
+		
+			// onExecuted
+			const onExecuted = nodeType.prototype.onExecuted;
+			nodeType.prototype.onExecuted = function (texts) {
+				onExecuted?.apply(this, arguments);
+				outSet.call(this, texts?.string);
+			};
 		}
 	},
 	async registerCustomNodes(app) {
