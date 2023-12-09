@@ -1,6 +1,6 @@
 import json
 
-class TestJson:
+class TestJsonPreview:
     @classmethod
     def INPUT_TYPES(s):
         return {
@@ -42,6 +42,7 @@ class PreviewJson:
 
 NODE_CLASS_MAPPINGS = {
     "PreviewJson": PreviewJson,
+    "TestJsonPreview": TestJsonPreview,
     #"SaveJson": SaveJson,
     #"PreviewVideo": PreviewVideo
 }
@@ -49,6 +50,7 @@ NODE_CLASS_MAPPINGS = {
 # A dictionary that contains the friendly/humanly readable titles for the nodes
 NODE_DISPLAY_NAME_MAPPINGS = {
     "PreviewJson": "Preview Json",
+    "TestJsonPreview": "Test Json Preview",
     #"SaveJson": "Save Json",
     #"PreviewVideo": "Preview Video"
 }
