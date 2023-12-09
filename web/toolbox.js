@@ -1,6 +1,29 @@
 import { app } from "../../../scripts/app.js";
 import { $el } from "../../../scripts/ui.js";
 
+function get_position_style(ctx, widget_width, y, node_height) {
+    const MARGIN = 4;  // the margin around the html element
+
+/* Create a transform that deals with all the scrolling and zooming */
+    const elRect = ctx.canvas.getBoundingClientRect();
+    const transform = new DOMMatrix()
+        .scaleSelf(elRect.width / ctx.canvas.width, elRect.height / ctx.canvas.height)
+        .multiplySelf(ctx.getTransform())
+        .translateSelf(MARGIN, MARGIN + y);
+
+    return {
+        transformOrigin: '0 0',
+        transform: transform,
+        left: `0px`, 
+        top: `0px`,
+        position: "absolute",
+        maxWidth: `${widget_width - MARGIN*2}px`,
+        maxHeight: `${node_height - MARGIN*2}px`,    // we're assuming we have the whole height of the node
+        width: `auto`,
+        height: `auto`,
+    }
+}
+
 const ext = {
 	// Unique name for the extension
 	name: "Comfyui.ToolboxExtension",
@@ -55,7 +78,7 @@ const ext = {
                     type: "HTML",   // whatever
                     name: "code", // whatever
                     draw(ctx, node, widget_width, y, widget_height) { 
-                        Object.assign(this.inputEl.style, {maxWidth: `${widget_width - 2}px`,maxHeight: `${widget_height - 2}px`, });
+                        Object.assign(this.inputEl.style, get_position_style(ctx, widget_width, y, node.size[1]));
                     },
                 };
 
