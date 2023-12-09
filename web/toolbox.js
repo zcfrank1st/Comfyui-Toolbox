@@ -36,7 +36,7 @@ const ext = {
 				// widget.inputEl = inputEl;
 
 				// return { minWidth: 400, minHeight: 400, widget };
-				const defaultVal = inputData[1].default || "";
+				const defaultVal = inputData[1] || "";
 				return { widget: node.addWidget("json", inputName, defaultVal, () => {}, {}) };
 			} 
 		}
