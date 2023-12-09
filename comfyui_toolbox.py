@@ -39,6 +39,7 @@ class TestJsonPreview:
     CATEGORY = "test"
 
     def json_test(self, text):
+        print(text)
         return (text, )
 
 class SaveJson:
