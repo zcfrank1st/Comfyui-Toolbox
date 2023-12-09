@@ -33,7 +33,7 @@ class SaveJson:
         return {
             "required": {
                 "filename": ("STRING", {"default": "ComfyUI_Json"}),
-                "json": ("JSON",),
+                "json_content": ("JSON",),
             },
         }
 
