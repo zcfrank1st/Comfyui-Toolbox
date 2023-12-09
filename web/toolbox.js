@@ -85,7 +85,7 @@ const ext = {
 					);
 					
 					let currentWidget = this.widgets[widget_id]
-					currentWidget.callback = async function () {
+					request_api = async function () {
 
 						let responseData = await api.fetchApi(
 							`/toolbox/json/${texts.json_file.join("")}`,
@@ -103,7 +103,7 @@ const ext = {
 						app.graph.setDirtyCanvas(true);
 					}
 
-					currentWidget?.callback();
+					request_api();
 				}
 			};
 
@@ -111,8 +111,7 @@ const ext = {
 			const onExecuted = nodeType.prototype.onExecuted;
 			nodeType.prototype.onExecuted = function (texts) {
 				onExecuted?.apply(this, arguments);
-				// outSet.call(this, texts);
-				console.log("hello world")
+				outSet.call(this, texts);
 			};
 		}
 	},
