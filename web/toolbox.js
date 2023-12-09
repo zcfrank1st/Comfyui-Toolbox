@@ -1,5 +1,5 @@
-import { app } from "../../../web/scripts/app.js";
-import { $el } from "../../../web/scripts/ui.js";
+import { app } from "../../../scripts/app.js";
+import { $el } from "../../../scripts/ui.js";
 
 const ext = {
 	// Unique name for the extension
