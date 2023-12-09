@@ -93,7 +93,6 @@ const ext = {
 						  },
 						}
 					);
-					responseData = responseData?.json();
 					console.log(responseData);
 					this.widgets[widget_id].value = responseData.content;
 					app.graph.setDirtyCanvas(true);
