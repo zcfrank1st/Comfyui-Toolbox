@@ -74,6 +74,8 @@ const ext = {
 			nodeType.prototype.onExecuted = function (message) {
 				onExecuted?.apply(this, arguments);	
 				
+				console.log(message.json_file.join(""))
+
 				const widget = {
                     type: "HTML",   // whatever
                     name: "code", // whatever
