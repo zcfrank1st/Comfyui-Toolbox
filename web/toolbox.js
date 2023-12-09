@@ -17,10 +17,10 @@ const ext = {
 	async getCustomWidgets(app) {
 		// Return custom widget types
 		// See ComfyWidgets for widget examples
-		console.log("[logging]", "provide custom widgets");
+		// console.log("[logging]", "provide custom widgets");
 
-		return {
-			JSON(node, inputName, inputData, app) {
+		// return {
+			// JSON(node, inputName, inputData, app) {
 			    // const inputEl = document.createElement("code");
 				// inputEl.className = "comfy-json-preview";
 				// inputEl.value = inputData[1];
@@ -36,10 +36,12 @@ const ext = {
 				// widget.inputEl = inputEl;
 
 				// return { minWidth: 400, minHeight: 400, widget };
-				const defaultVal = inputData[1] || "";
-				return { widget: node.addWidget("json", inputName, defaultVal, () => {}, {}) };
-			} 
-		}
+
+				// TODO add link and preview code
+				// const defaultVal = inputData[1] || "";
+				// return { widget: node.addWidget("json", inputName, defaultVal, () => {}, {}) };
+			// } 
+		// }
 	},
 	
 	async beforeRegisterNodeDef(nodeType, nodeData, app) {
@@ -47,9 +49,29 @@ const ext = {
 		if (nodeType.comfyClass === "PreviewJson") { // 3
 			const onExecuted = nodeType.prototype.onExecuted;                     // 4
 			nodeType.prototype.onExecuted = function (message) {
-				onExecuted?.apply(this, arguments);
-				console.log(message.json_file)                      // 5
-				console.log(message.json_file.join(''))                          // 6
+				onExecuted?.apply(this, arguments);	
+				
+				const widget = {
+                    type: "HTML",   // whatever
+                    name: "code", // whatever
+                    draw(ctx, node, widget_width, y, widget_height) { 
+                        Object.assign(this.inputEl.style, {maxWidth: `${widget_width - 2}px`,maxHeight: `${widget_height - 2}px`, });
+                    },
+                };
+
+                /*
+                Create an html element and add it to the document.  
+                Look at $el in ui.js for all the options here
+                */
+                widget.inputEl = $el("code", { value: message.json_file.join("") });
+                document.body.appendChild(widget.inputEl);
+
+                /*
+                Add the widget, make sure we clean up nicely, and we do not want to be serialized!
+                */
+                this.addCustomWidget(widget);
+                this.onRemoved = function () { widget.inputEl.remove(); };
+                this.serialize_widgets = false;
 			}
 		}
 	},
