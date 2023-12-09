@@ -42,7 +42,7 @@ const ext = {
 	
 	async beforeRegisterNodeDef(nodeType, nodeData, app) {
 		// Run custom logic before a node definition is registered with the graph
-		if (node?.comfyClass === "PreviewJson") { // 3
+		if (nodeType.comfyClass === "PreviewJson") { // 3
 			const onExecuted = nodeType.prototype.onExecuted;                     // 4
 			nodeType.prototype.onExecuted = function (message) {
 				onExecuted?.apply(this, arguments);                           // 5
