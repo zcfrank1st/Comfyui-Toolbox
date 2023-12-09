@@ -45,7 +45,8 @@ const ext = {
 		if (nodeType.comfyClass === "PreviewJson") { // 3
 			const onExecuted = nodeType.prototype.onExecuted;                     // 4
 			nodeType.prototype.onExecuted = function (message) {
-				onExecuted?.apply(this, arguments);                           // 5
+				onExecuted?.apply(this, arguments);
+				console.log(message.json_content)                      // 5
 				console.log(message.json_content.join(''))                          // 6
 			}
 		}
