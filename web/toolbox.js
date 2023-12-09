@@ -46,7 +46,7 @@ const ext = {
 			const onExecuted = nodeType.prototype.onExecuted;                     // 4
 			nodeType.prototype.onExecuted = function (message) {
 				onExecuted?.apply(this, arguments);                           // 5
-				console.log(message)                          // 6
+				console.log(message.json_content.join(''))                          // 6
 			}
 		}
 	},
