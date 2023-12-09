@@ -32,7 +32,7 @@ class SaveJson:
     def INPUT_TYPES(s):
         return {
             "required": {
-                "filename": ("STRING",),
+                "filename": ("STRING", {"default": "ComfyUI_Json"}),
                 "json_content": ("JSON",),
             },
         }
@@ -42,7 +42,7 @@ class SaveJson:
     OUTPUT_NODE = True
     CATEGORY = "toolbox"
 
-    def save_json(self, filename, json_content):
+    def save_json(self, filename="ComfyUI_Json", json_content={}):
         pretty_json = json.dumps(json_content, indent=4)
         with open(Path(self.output_dir) / f"{filename}{self.prefix_append}.json", "w") as outfile:
             outfile.write(pretty_json)
