@@ -14,7 +14,7 @@ Path(JSON_OUT_PATH).mkdir(parents=True, exist_ok=True)
 async def argo_langs_support(request):
     filename = request.match_info["filename"]
     file_path = None
-    if "tmp" in filename:
+    if "temp" in filename:
         file_path = folder_paths.get_temp_directory()
     else:
         file_path = JSON_OUT_PATH
