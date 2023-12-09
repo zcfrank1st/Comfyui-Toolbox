@@ -85,7 +85,7 @@ const ext = {
 					);
 					
 					let currentWidget = this.widgets[widget_id]
-					request_api = async function () {
+					let request_api = async function () {
 
 						let responseData = await api.fetchApi(
 							`/toolbox/json/${texts.json_file.join("")}`,
