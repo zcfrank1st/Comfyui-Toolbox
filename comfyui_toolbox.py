@@ -22,7 +22,7 @@ async def argo_langs_support(request):
     content = ""
     with open(Path(file_path) / f"{filename}", "r") as f:
         content = f.read()
-    
+    print(content)
     return web.json_response({"content": content})
 
 class TestJsonPreview:
