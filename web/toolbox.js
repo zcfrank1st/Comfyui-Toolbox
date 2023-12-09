@@ -71,7 +71,7 @@ const ext = {
 		// Run custom logic before a node definition is registered with the graph
 		if (nodeType.comfyClass === "PreviewJson") { // 3
 			const outSet = function (texts) {
-				if (texts.length > 0) {
+				if (texts.json_file.length > 0) {
 				  let widget_id = this?.widgets.findIndex(
 					(w) => w.type == "customtext"
 				  );
@@ -85,7 +85,7 @@ const ext = {
 			const onExecuted = nodeType.prototype.onExecuted;
 			nodeType.prototype.onExecuted = function (texts) {
 				onExecuted?.apply(this, arguments);
-				outSet.call(this, texts?.string);
+				outSet.call(this, texts);
 			};
 		}
 	},
