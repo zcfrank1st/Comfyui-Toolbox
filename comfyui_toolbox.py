@@ -32,7 +32,7 @@ class PreviewJson:
 
     def json_preview(self, json_content):
         pretty_json = json.dumps(json_content, indent=4)
-        return { "ui": { "json_content": pretty_json }}
+        return { "ui": { "json_content": "helloworld" }}
 
 # class SaveJson:
 #     ...
