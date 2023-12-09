@@ -25,7 +25,7 @@ const ext = {
 				inputEl.className = "comfy-json-preview";
 				inputEl.value = inputData[1];
 
-				const widget = node.addDOMWidget(inputName, "customjson", inputEl, {
+				const widget = node.addDOMWidget(inputName, "json", inputEl, {
 					getValue() {
 						return inputEl.value;
 					},
