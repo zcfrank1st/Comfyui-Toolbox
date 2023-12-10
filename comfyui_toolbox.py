@@ -11,7 +11,7 @@ JSON_OUT_PATH = os.path.join(folder_paths.output_directory, "json")
 Path(JSON_OUT_PATH).mkdir(parents=True, exist_ok=True)
 
 @PromptServer.instance.routes.get("/toolbox/json/{filename}")
-async def argo_langs_support(request):
+async def toolbox_json(request):
     filename = request.match_info["filename"]
     file_path = None
     if "temp" in filename:
@@ -45,13 +45,13 @@ class TestJsonPreview:
 class SaveJson:
     def __init__(self):
         self.output_dir = JSON_OUT_PATH
-        self.prefix_append = ""
-    
+        self.prefix_append = '_' + ''.join(random.choice("abcdefghijklmnopqrstupvxyz") for x in range(5))
+
     @classmethod
     def INPUT_TYPES(s):
         return {
             "required": {
-                "filename": ("STRING", {"default": "ComfyUI_Json"}),
+                "filename": ("STRING", {"default": "toolbox"}),
                 "json_content": ("JSON",),
             },
         }
@@ -61,7 +61,7 @@ class SaveJson:
     OUTPUT_NODE = True
     CATEGORY = "toolbox"
 
-    def save_json(self, filename="ComfyUI_Json", json_content={}):
+    def save_json(self, filename="toolbox", json_content={}):
         pretty_json = json.dumps(json_content, indent=4)
         with open(Path(self.output_dir) / f"{filename}{self.prefix_append}.json", "w") as outfile:
             outfile.write(pretty_json)

@@ -1,5 +1,6 @@
 import { app } from "/scripts/app.js";
 import "/scripts/domWidget.js"
+import {ComfyWidgets} from "/script/widgets.js"
 import { api } from "/scripts/api.js";
 
 const ext = {
@@ -24,7 +25,7 @@ const ext = {
 			JSON(node, inputName, inputData, app) {
 				const inputEl = document.createElement("code");
 				inputEl.className = "comfy-json-preview";
-				inputEl.value = inputData.value;
+				// inputEl.value = inputData.value;
 
 				const widget = node.addDOMWidget(inputName, "customjson", inputEl, {
 					getValue() {
