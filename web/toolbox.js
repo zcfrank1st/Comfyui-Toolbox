@@ -20,23 +20,25 @@ const ext = {
 		// See ComfyWidgets for widget examples
 		// console.log("[logging]", "provide custom widgets");
 
-		// return {
-		// JSON(node, inputName, inputData, app) {
-		// const inputEl = document.createElement("code");
-		// inputEl.className = "comfy-json-preview";
-		// inputEl.value = inputData[1];
+		return {
+			JSON(node, inputName, inputData, app) {
+				const inputEl = document.createElement("code");
+				inputEl.className = "comfy-json-preview";
+				inputEl.value = inputData.value;
 
-		// const widget = node.addDOMWidget(inputName, "json", inputEl, {
-		// 	getValue() {
-		// 		return inputEl.value;
-		// 	},
-		// 	setValue(v) {
-		// 		inputEl.value = v;
-		// 	},
-		// });
-		// widget.inputEl = inputEl;
+				const widget = node.addDOMWidget(inputName, "customjson", inputEl, {
+					getValue() {
+						return inputEl.value;
+					},
+					setValue(v) {
+						inputEl.value = v;
+					},
+				});
+				widget.inputEl = inputEl;
 
-		// return { minWidth: 400, minHeight: 400, widget };
+				return { minWidth: 400, minHeight: 400, widget }
+			}
+		}
 
 		// TODO add link and preview code
 		// const defaultVal = inputData[1] || "";
@@ -55,24 +57,19 @@ const ext = {
 					? onNodeCreated.apply(this, arguments)
 					: undefined;
 
-				let PreviewTextNode = app.graph._nodes.filter(
+				let PreviewJsonNode = app.graph._nodes.filter(
 					(wi) => wi.type == nodeData.name
 				),
-					nodeName = `${nodeData.name}_${PreviewTextNode.length}`;
+					nodeName = `${nodeData.name}_${PreviewJsonNode.length}`;
 
 				console.log(`Create ${nodeData.name}: ${nodeName}`);
 
-				const wi = ComfyWidgets.STRING(
+				const wi = getCustomWidgets(app).JSON(
 					this,
 					nodeName,
-					[
-						"STRING",
-						{
-							default: "",
-							placeholder: "Json output...",
-							multiline: true,
-						},
-					],
+					{
+						value: "Json output...",
+					},
 					app
 				);
 				wi.widget.inputEl.readOnly = true;
@@ -81,7 +78,7 @@ const ext = {
 			const outSet = function (texts) {
 				if (texts.json_file.length > 0) {
 					let widget_id = this?.widgets.findIndex(
-						(w) => w.type == "customtext"
+						(w) => w.type == "customjson"
 					);
 					
 					let currentWidget = this.widgets[widget_id]
