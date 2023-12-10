@@ -30,7 +30,7 @@ class TestJsonPreview:
     def INPUT_TYPES(s):
         return {
             "required": {
-                "text": ("STRING",),
+                "text": ("STRING",{"default": ""}),
             },
         }
 
