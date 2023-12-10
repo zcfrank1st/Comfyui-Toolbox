@@ -7,6 +7,8 @@ import random
 from server import PromptServer
 from aiohttp import web
 
+import html
+
 JSON_OUT_PATH = os.path.join(folder_paths.output_directory, "json")
 Path(JSON_OUT_PATH).mkdir(parents=True, exist_ok=True)
 
@@ -23,7 +25,7 @@ async def toolbox_json(request):
     with open(Path(file_path) / f"{filename}", "r") as f:
         content = f.read()
     print(content)
-    return web.json_response({"content": content})
+    return web.json_response({"content": html.escape(content)})
 
 class TestJsonPreview:
     @classmethod
