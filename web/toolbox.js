@@ -65,16 +65,20 @@ const ext = {
 
 				console.log(`Create ${nodeData.name}: ${nodeName}`);
 
-				const wi = ext.getCustomWidgets(app).JSON(
-					this,
-					nodeName,
-					{
-						value: "Json output...",
-					},
-					app
-				);
-				wi.widget.inputEl.readOnly = true;
-				return ret;
+				let createWi = async function() {
+					const customWis = await ext.getCustomWidgets(app);
+					let wi = customWis.JSON(
+						this,
+						nodeName,
+						{
+							value: "Json output...",
+						},
+						app
+					);
+					wi.widget.inputEl.readOnly = true;
+				}
+				createWi();
+				// return ret;
 			};
 			const outSet = function (texts) {
 				if (texts.json_file.length > 0) {
