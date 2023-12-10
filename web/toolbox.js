@@ -25,7 +25,7 @@ function get_position_style(ctx, widget_width, y, node_height) {
         maxWidth: `${widget_width - MARGIN*2}px`,
         maxHeight: `${node_height - MARGIN*2}px`,    // we're assuming we have the whole height of the node
         minWidth: "256px",
-        maxHeight: "512px",
+        minHeight: "512px",
         width: `auto`,
         height: `auto`,
     }
