@@ -76,7 +76,7 @@ const ext = {
                 orig_nodeCreated?.apply(this, arguments);
 
                 const widget = {
-                    type: "showjson" + + nodeType.comfyClass,   // whatever
+                    type: "showjson" + nodeType.comfyClass,   // whatever
                     name: "showjson", // whatever
                     draw(ctx, node, widget_width, y, widget_height) { 
                         Object.assign(this.inputEl.style, get_position_style(ctx, widget_width, y, node.size[1])); // assign the required style when we are drawn
