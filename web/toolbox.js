@@ -50,37 +50,37 @@ const ext = {
 	async beforeRegisterNodeDef(nodeType, nodeData, app) {
 		// Run custom logic before a node definition is registered with the graph
 		if (nodeType.comfyClass === "PreviewJson") { // 3
-			let ext = this;
+			// let ext = this;
 
-			const onNodeCreated = nodeType.prototype.onNodeCreated;
-			nodeType.prototype.onNodeCreated = function () {
-				const ret = onNodeCreated
-					? onNodeCreated.apply(this, arguments)
-					: undefined;
+			// const onNodeCreated = nodeType.prototype.onNodeCreated;
+			// nodeType.prototype.onNodeCreated = function () {
+			// 	const ret = onNodeCreated
+			// 		? onNodeCreated.apply(this, arguments)
+			// 		: undefined;
 
-				let PreviewJsonNode = app.graph._nodes.filter(
-					(wi) => wi.type == nodeData.name
-				),
-					nodeName = `${nodeData.name}_${PreviewJsonNode.length}`;
+			// 	let PreviewJsonNode = app.graph._nodes.filter(
+			// 		(wi) => wi.type == nodeData.name
+			// 	),
+			// 		nodeName = `${nodeData.name}_${PreviewJsonNode.length}`;
 
-				console.log(`Create ${nodeData.name}: ${nodeName}`);
+			// 	console.log(`Create ${nodeData.name}: ${nodeName}`);
 
-				let currentNode = this;
-				let createWi = async function() {
-					const customWis = await ext.getCustomWidgets(app);
-					let wi = customWis.JSON(
-						currentNode,
-						nodeName,
-						{
-							value: "Json output...",
-						},
-						app
-					);
-					wi.widget.inputEl.readOnly = true;
-				}
-				createWi();
-				// return ret;
-			};
+			// 	let currentNode = this;
+			// 	let createWi = async function() {
+			// 		const customWis = await ext.getCustomWidgets(app);
+			// 		let wi = customWis.JSON(
+			// 			currentNode,
+			// 			nodeName,
+			// 			{
+			// 				value: "Json output...",
+			// 			},
+			// 			app
+			// 		);
+			// 		wi.widget.inputEl.readOnly = true;
+			// 	}
+			// 	createWi();
+			// 	// return ret;
+			// };
 			const outSet = function (texts) {
 				if (texts.json_file.length > 0) {
 					let widget_id = this?.widgets.findIndex(
