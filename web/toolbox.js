@@ -40,14 +40,16 @@ const ext = {
 				// return { minWidth: 400, minHeight: 400, widget }
 				let defaultVal = "Json output...";
 				let options = {};
+				let wi = node.addWidget(
+					"customjson",
+					inputName,
+					defaultVal,
+					() => {},
+					options,
+					)
+				wi.type = "STRING"
 				return {
-					widget: node.addWidget(
-						"json",
-						inputName,
-						defaultVal,
-						() => {},
-						options,
-						)
+					widget: wi
 				};
 			}
 		}
