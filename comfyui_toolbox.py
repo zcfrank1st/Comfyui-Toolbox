@@ -24,9 +24,9 @@ async def toolbox_json(request):
     content = ""
     with open(Path(file_path) / f"{filename}", "r") as f:
         content = f.read()
-    
+    content = html.escape(content)
     content = "<br />".join(content.split("\n"))
-    return web.json_response({"content": html.escape(content)})
+    return web.json_response({"content": content})
 
 class TestJsonPreview:
     @classmethod
