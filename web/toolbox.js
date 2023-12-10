@@ -54,7 +54,7 @@ const ext = {
 						console.log(responseData)
 						console.log(currentWidget)
 
-						currentWidget.value = responseData.content;
+						currentWidget.inputEl.innerHTML = responseData.content;
 
 						console.log(currentWidget.value)
 						app.graph.setDirtyCanvas(true);
@@ -87,7 +87,8 @@ const ext = {
                 Create an html element and add it to the document.  
                 Look at $el in ui.js for all the options here
                 */
-                widget.inputEl = $el("code", {value:"Output Json..."});
+                widget.inputEl = $el("code");
+				inputEl.innerHTML = "Output Json ..."
                 document.body.appendChild(widget.inputEl);
 
                 /*
