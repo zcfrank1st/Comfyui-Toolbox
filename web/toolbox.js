@@ -87,7 +87,7 @@ const ext = {
                 Create an html element and add it to the document.  
                 Look at $el in ui.js for all the options here
                 */
-                widget.inputEl = $el("code");
+                widget.inputEl = $el("code", {value:"Output Json..."});
                 document.body.appendChild(widget.inputEl);
 
                 /*
