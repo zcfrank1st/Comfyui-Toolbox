@@ -30,11 +30,11 @@ function get_position_style(ctx, widget_width, y, node_height) {
 const ext = {
 	name: "Comfyui.ToolboxExtension",
 	async beforeRegisterNodeDef(nodeType, nodeData, app) {
-		if (nodeType.comfyClass === "PreviewJson") { // 3
+		if (nodeType.comfyClass === "PreviewJson" || nodeType.comfyClass === "SaveJson") { // 3
 			const outSet = function (texts) {
 				if (texts.json_file.length > 0) {
 					let widget_id = this?.widgets.findIndex(
-						(w) => w.type == "showjson"
+						(w) => w.type == "showjson" + nodeType.comfyClass
 					);
 					
 					let currentWidget = this.widgets[widget_id]
@@ -76,7 +76,7 @@ const ext = {
                 orig_nodeCreated?.apply(this, arguments);
 
                 const widget = {
-                    type: "showjson",   // whatever
+                    type: "showjson" + + nodeType.comfyClass,   // whatever
                     name: "showjson", // whatever
                     draw(ctx, node, widget_width, y, widget_height) { 
                         Object.assign(this.inputEl.style, get_position_style(ctx, widget_width, y, node.size[1])); // assign the required style when we are drawn
