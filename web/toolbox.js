@@ -23,6 +23,9 @@ const ext = {
 
 		return {
 			JSON(node, inputName, inputData, app) {
+				let res = ComfyWidgets.COMBO(node, inputName, inputData)
+				node.addWidget(res.widget)
+				
 				const inputEl = document.createElement("code");
 				inputEl.className = "comfy-json-preview";
 				// inputEl.value = inputData.value;
