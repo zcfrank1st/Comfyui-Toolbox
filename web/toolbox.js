@@ -65,10 +65,11 @@ const ext = {
 
 				console.log(`Create ${nodeData.name}: ${nodeName}`);
 
+				let currentNode = this;
 				let createWi = async function() {
 					const customWis = await ext.getCustomWidgets(app);
 					let wi = customWis.JSON(
-						this,
+						currentNode,
 						nodeName,
 						{
 							value: "Json output...",
