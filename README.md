@@ -10,6 +10,5 @@ ComfyUI Toolbox
 
 
 ## TODO
-1. preview json
-2. save json
-3. preview video
+0. frontend css
+1. preview video
