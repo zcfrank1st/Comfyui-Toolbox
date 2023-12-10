@@ -28,22 +28,16 @@ async def toolbox_json(request):
 class TestJsonPreview:
     @classmethod
     def INPUT_TYPES(s):
-        return {
-            "required": {
-                "text": ("STRING",{"default": ""}),
-            },
-        }
+        return { "required" : {}, "optional" : { 'anything' : ( "*", {} ) } }
 
     RETURN_TYPES = ("JSON",)
     FUNCTION = "json_test"
     CATEGORY = "test"
 
-    def json_test(self, text):
-        text = """
-{
-"hello": "world"
-}
-"""
+    def json_test(self, anything=None):
+        text = {
+            "hello": "world"
+        }
         return (text, )
 
 class SaveJson:
