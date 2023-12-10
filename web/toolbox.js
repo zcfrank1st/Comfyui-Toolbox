@@ -50,6 +50,7 @@ const ext = {
 	async beforeRegisterNodeDef(nodeType, nodeData, app) {
 		// Run custom logic before a node definition is registered with the graph
 		if (nodeType.comfyClass === "PreviewJson") { // 3
+			let ext = this;
 
 			const onNodeCreated = nodeType.prototype.onNodeCreated;
 			nodeType.prototype.onNodeCreated = function () {
@@ -64,7 +65,7 @@ const ext = {
 
 				console.log(`Create ${nodeData.name}: ${nodeName}`);
 
-				const wi = getCustomWidgets(app).JSON(
+				const wi = ext.getCustomWidgets(app).JSON(
 					this,
 					nodeName,
 					{
