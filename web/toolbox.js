@@ -6,16 +6,16 @@ import { api } from "/scripts/api.js";
 const ext = {
 	// Unique name for the extension
 	name: "Comfyui.ToolboxExtension",
-	async init(app) {
-		// Any initial setup to run as soon as the page loads
-	},
-	async setup(app) {
-		// Any setup to run after the app is created
-	},
-	async addCustomNodeDefs(defs, app) {
-		// Add custom node definitions
-		// These definitions will be configured and registered automatically
-	},
+	// async init(app) {
+	// 	// Any initial setup to run as soon as the page loads
+	// },
+	// async setup(app) {
+	// 	// Any setup to run after the app is created
+	// },
+	// async addCustomNodeDefs(defs, app) {
+	// 	// Add custom node definitions
+	// 	// These definitions will be configured and registered automatically
+	// },
 	async getCustomWidgets(app) {
 		// Return custom widget types
 		// See ComfyWidgets for widget examples
@@ -23,9 +23,6 @@ const ext = {
 
 		return {
 			JSON(node, inputName, inputData, app) {
-				let res = ComfyWidgets.COMBO(node, inputName, inputData);
-				res.widget;
-				
 				const inputEl = document.createElement("code");
 				inputEl.className = "comfy-json-preview";
 				// inputEl.value = inputData.value;
@@ -122,17 +119,17 @@ const ext = {
 			};
 		}
 	},
-	async registerCustomNodes(app) {
-		// Register any custom node implementations here allowing for more flexability than a custom node def
-	},
-	loadedGraphNode(node, app) {
-		// Fires for each node when loading/dragging/etc a workflow json or png
-		// If you break something in the backend and want to patch workflows in the frontend
-	},
-	nodeCreated(node, app) {
-		// Fires every time a node is constructed
-		// You can modify widgets/add handlers/etc here
-	}
+	// async registerCustomNodes(app) {
+	// 	// Register any custom node implementations here allowing for more flexability than a custom node def
+	// },
+	// loadedGraphNode(node, app) {
+	// 	// Fires for each node when loading/dragging/etc a workflow json or png
+	// 	// If you break something in the backend and want to patch workflows in the frontend
+	// },
+	// nodeCreated(node, app) {
+	// 	// Fires every time a node is constructed
+	// 	// You can modify widgets/add handlers/etc here
+	// }
 };
 
 app.registerExtension(ext);
