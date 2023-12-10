@@ -36,7 +36,12 @@ class TestJsonPreview:
 
     def json_test(self, anything=None):
         text = {
-            "hello": "world"
+            "hello": "world",
+            "hello1": "world",
+            "hello2": "world",
+            "hello3": "world",
+            "hello4": "world",
+            "hello5": "world",
         }
         return (text, )
 
