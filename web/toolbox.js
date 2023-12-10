@@ -1,6 +1,6 @@
 import { app } from "/scripts/app.js";
 import "/scripts/domWidget.js"
-import {ComfyWidgets} from "/script/widgets.js"
+import {ComfyWidgets} from "/scripts/widgets.js"
 import { api } from "/scripts/api.js";
 
 const ext = {
