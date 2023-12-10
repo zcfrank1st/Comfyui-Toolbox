@@ -1,5 +1,5 @@
-import { app } from "../../../scripts/app.js";
-import { ComfyWidgets } from "../../../scripts/widgets.js";
+import { app } from "/scripts/app.js";
+import "/scripts/domWidget.js"
 import { api } from "/scripts/api.js";
 
 const ext = {
