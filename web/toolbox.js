@@ -52,7 +52,11 @@ const ext = {
 						responseData = await responseData?.json();
 
 						console.log(responseData)
+						console.log(currentWidget)
+
 						currentWidget.value = responseData.content;
+
+						console.log(currentWidget.value)
 						app.graph.setDirtyCanvas(true);
 					}
 
