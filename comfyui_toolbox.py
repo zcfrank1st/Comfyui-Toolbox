@@ -30,7 +30,7 @@ class TestJsonPreview:
     def INPUT_TYPES(s):
         return {
             "required": {
-                "text": ("STRING", {"multiline": True}),
+                "text": ("STRING",),
             },
         }
 
@@ -39,7 +39,11 @@ class TestJsonPreview:
     CATEGORY = "test"
 
     def json_test(self, text):
-        print(text)
+        text = """
+{
+"hello": "world"
+}
+"""
         return (text, )
 
 class SaveJson:
