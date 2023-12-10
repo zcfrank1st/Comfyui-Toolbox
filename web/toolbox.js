@@ -15,8 +15,8 @@ function get_position_style(ctx, widget_width, y, node_height) {
         .translateSelf(MARGIN, MARGIN + y);
 
     return {
-        background: black,
-        color: green,
+        background: "black",
+        color: "green",
         transformOrigin: '0 0',
         transform: transform,
         left: `0px`, 
