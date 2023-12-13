@@ -22,10 +22,11 @@ function get_position_style(ctx, widget_width, y, node_height) {
         left: `0px`, 
         top: `0px`,
         position: "absolute",
-        maxWidth: `${widget_width - MARGIN*2}px`,
-        maxHeight: `${node_height - MARGIN*2}px`,    // we're assuming we have the whole height of the node
+        // maxWidth: `${widget_width - MARGIN*2}px`,
+        // maxHeight: `${node_height - MARGIN*2}px`,    // we're assuming we have the whole height of the node
         width: `auto`,
         height: `auto`,
+        
     }
 }
 
@@ -40,6 +41,7 @@ const ext = {
 					);
 					
 					let currentWidget = this.widgets[widget_id]
+                    let node = this;
 					let request_api = async function () {
 
 						let responseData = await api.fetchApi(
@@ -53,13 +55,15 @@ const ext = {
 						);
 						responseData = await responseData?.json();
 
-						console.log(responseData)
-						console.log(currentWidget)
+						// console.log(responseData)
+						// console.log(currentWidget)
 
 						currentWidget.inputEl.innerHTML = responseData.content;
 
-						console.log(currentWidget.value)
-						app.graph.setDirtyCanvas(true);
+						// console.log(currentWidget.value)
+
+
+                        node.setSize([node.size[0], node.computeSize()[1] + currentWidget.inputEl.offsetHeight]);
 					}
 
 					request_api();
@@ -81,6 +85,7 @@ const ext = {
                     type: "showjson" + nodeType.comfyClass,   // whatever
                     name: "showjson", // whatever
                     draw(ctx, node, widget_width, y, widget_height) { 
+                        // node.size[1]
                         Object.assign(this.inputEl.style, get_position_style(ctx, widget_width, y, node.size[1])); // assign the required style when we are drawn
                     },
                 };
@@ -100,6 +105,8 @@ const ext = {
                 this.onRemoved = function () { widget.inputEl.remove(); };
                 this.serialize_widgets = false;
 
+                this.size = this.computeSize();
+                this.onResize?.(this.size);
             }
 		}
 	},
